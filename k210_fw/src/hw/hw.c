@@ -18,6 +18,7 @@ void hwInit(void)
 {
   bspInit();
 
+  cmdifInit();
   ledInit();
   uartInit();
   uartOpen(_DEF_UART1, 115200);

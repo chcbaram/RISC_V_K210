@@ -70,7 +70,7 @@ static inline void init_tls(void)
 
     size_t tbss_size = &_tbss_end - &_tdata_end;
 
-    memset(thread_pointer + tdata_size, 0, tbss_size);
+    memset((void *)((size_t)thread_pointer + (size_t)tdata_size), 0, tbss_size);
 }
 
 #ifdef __cplusplus

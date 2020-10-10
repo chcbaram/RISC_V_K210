@@ -151,7 +151,7 @@ static inline int corelock_trylock(corelock_t *lock)
         lock->core = core;
         res = 0;
     }
-    else if (lock->core == core)
+    else if (lock->core == (int)core)
     {
         /* Same core get lock */
         lock->count++;
@@ -181,7 +181,7 @@ static inline void corelock_lock(corelock_t *lock)
         lock->count++;
         lock->core = core;
     }
-    else if (lock->core == core)
+    else if (lock->core == (int)core)
     {
         /* Same core get lock */
         lock->count++;
@@ -209,7 +209,7 @@ static inline void corelock_unlock(corelock_t *lock)
                  : "=r"(core));
     spinlock_lock(&lock->lock);
 
-    if (lock->core == core)
+    if (lock->core == (int)core)
     {
         /* Same core release lock */
         lock->count--;

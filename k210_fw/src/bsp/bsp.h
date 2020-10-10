@@ -11,6 +11,7 @@
 
 #include "def.h"
 
+#include "lib/bsp/include/bsp.h"
 
 #include "sysctl.h"
 #include "encoding.h"

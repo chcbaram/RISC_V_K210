@@ -305,6 +305,10 @@ int32_t uartPrintf(uint8_t channel, const char *fmt, ...)
   int32_t len;
   char print_buffer[256];
 
+  if (uart_tbl[channel].is_open != true)
+  {
+    return 0;
+  }
 
   len = vsnprintf(print_buffer, 255, fmt, arg);
   va_end (arg);
