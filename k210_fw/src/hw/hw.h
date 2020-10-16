@@ -19,6 +19,8 @@ extern "C" {
 #include "led.h"
 #include "uart.h"
 #include "cmdif.h"
+#include "gpio.h"
+#include "lcd.h"
 
 
 void hwInit(void);

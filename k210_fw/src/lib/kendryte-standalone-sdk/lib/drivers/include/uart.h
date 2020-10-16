@@ -38,9 +38,9 @@
 #define _DRIVER_APBUART_H
 
 #include <stdint.h>
+#include "dmac.h"
 #include "platform.h"
 #include "plic.h"
-#include "dmac.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -363,7 +363,6 @@ void uart_send_data_dma(uart_device_number_t uart_channel, dmac_channel_number_t
  */
 void uart_receive_data_dma(uart_device_number_t uart_channel, dmac_channel_number_t dmac_channel, uint8_t *buffer, size_t buf_len);
 
-
 /**
  * @brief       Send data by dma
  *
@@ -404,7 +403,7 @@ void uart_receive_data_dma_irq(uart_device_number_t uart_channel, dmac_channel_n
  * @param[in]   buffer              Uart DMA callback
  *
  */
-void uart_handle_data_dma(uart_device_number_t uart_channel ,uart_data_t data, plic_interrupt_t *cb);
+void uart_handle_data_dma(uart_device_number_t uart_channel, uart_data_t data, plic_interrupt_t *cb);
 
 /**
  * @brief       Set uart work mode
@@ -470,64 +469,12 @@ void uart_set_tat(uart_device_number_t uart_channel, uart_tat_mode_t tat_mode, s
 void uart_set_det(uart_device_number_t uart_channel, uart_det_mode_t det_mode, size_t time);
 
 /**
- * @brief       Put a char to UART1
+ * @brief       Set the default debug serial port
  *
- * @param[in]   c       The char to put
+ * @param[in]   uart_channel        Uart index
  *
- * @return      result
- *     - Byte   On success, returns the written character.
- *     - EOF    On failure, returns EOF and sets the error indicator (see ferror()) on stdout.
  */
-int uart1_putchar(char c);
-
-/**
- * @brief       Get a byte from UART1
- *
- * @return      byte as int type from UART
- *     - Byte   The character read as an unsigned char cast to an int
- *     - EOF    EOF on end of file or error, no enough byte to read
- */
-int uart1_getchar(void);
-
-/**
- * @brief       Put a char to UART2
- *
- * @param[in]   c       The char to put
- *
- * @return      result
- *     - Byte   On success, returns the written character.
- *     - EOF    On failure, returns EOF and sets the error indicator (see ferror()) on stdout.
- */
-int uart2_putchar(char c);
-
-/**
- * @brief       Get a byte from UART2
- *
- * @return      byte as int type from UART
- *     - Byte   The character read as an unsigned char cast to an int
- *     - EOF    EOF on end of file or error, no enough byte to read
- */
-int uart2_getchar(void);
-
-/**
- * @brief       Put a char to UART3
- *
- * @param[in]   c       The char to put
- *
- * @return      result
- *     - Byte   On success, returns the written character.
- *     - EOF    On failure, returns EOF and sets the error indicator (see ferror()) on stdout.
- */
-int uart3_putchar(char c);
-
-/**
- * @brief       Get a byte from UART3
- *
- * @return      byte as int type from UART
- *     - Byte   The character read as an unsigned char cast to an int
- *     - EOF    EOF on end of file or error, no enough byte to read
- */
-int uart3_getchar(void);
+void uart_debug_init(uart_device_number_t uart_channel);
 
 #ifdef __cplusplus
 }

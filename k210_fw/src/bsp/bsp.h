@@ -23,7 +23,7 @@
 #include "gpio_common.h"
 #include "plic.h"
 #include "uarths.h"
-
+#include "spi.h"
 
 
 #ifdef __cplusplus

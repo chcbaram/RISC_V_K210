@@ -9,8 +9,7 @@
 
 
 #include "hw.h"
-
-
+#include "lcd/st7789.h"
 
 
 
@@ -22,5 +21,11 @@ void hwInit(void)
   ledInit();
   uartInit();
   uartOpen(_DEF_UART1, 115200);
+  gpioInit();
 
+  lcdInit();
 }
+
+
+
+

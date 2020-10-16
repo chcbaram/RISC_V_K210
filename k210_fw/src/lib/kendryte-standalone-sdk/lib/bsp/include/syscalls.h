@@ -46,9 +46,12 @@ typedef int (*sys_putchar_t)(char c);
  */
 typedef int (*sys_getchar_t)(void);
 
+extern sys_putchar_t sys_putchar;
+extern sys_getchar_t sys_getchar;
+
 /**
  * @brief       Register putchar function when perform write syscall
- * 
+ *
  * @param[in]   putchar       The user-defined putchar function
  *
  * @return      None
@@ -57,23 +60,27 @@ void sys_register_putchar(sys_putchar_t putchar);
 
 /**
  * @brief       Register getchar function when perform read syscall
- * 
+ *
  * @param[in]   getchar       The user-defined getchar function
  *
  * @return      None
  */
 void sys_register_getchar(sys_getchar_t getchar);
 
+/**
+ * @brief       Flush stdin buffer
+ *
+ * @return      None
+ */
+void sys_stdin_flush(void);
+
 void __attribute__((noreturn)) sys_exit(int code);
 
-void setStats(int enable);
-
-#undef putchar
-int putchar(int ch);
-void printstr(const char *s);
-
-void printhex(uint64_t x);
-
+/**
+ * @brief       Get free memory
+ *
+ * @return      The size of free memory
+ */
 size_t get_free_heap_size(void);
 
 #ifdef __cplusplus
@@ -81,4 +88,3 @@ size_t get_free_heap_size(void);
 #endif
 
 #endif /* _BSP_SYSCALLS_H */
-

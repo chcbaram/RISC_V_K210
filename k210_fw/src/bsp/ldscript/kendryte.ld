@@ -248,5 +248,8 @@ SECTIONS
 
   /* Heap end is at the end of memory, the memory size can set in kconfig */
   PROVIDE( _heap_end = _ram_end );
+  
+  
+  .NoneCacheableMem (NOLOAD): { *(.NoneCacheableMem) } >ram_nocache
 }
 

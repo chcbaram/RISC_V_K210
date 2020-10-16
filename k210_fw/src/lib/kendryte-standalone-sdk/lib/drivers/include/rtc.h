@@ -620,4 +620,3 @@ void rtc_alarm_irq_unregister(void);
 #endif
 
 #endif /* _DRIVER_RTC_H */
-

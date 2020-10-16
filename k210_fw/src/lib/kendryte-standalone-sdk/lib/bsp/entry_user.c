@@ -21,23 +21,26 @@
 #include "fpioa.h"
 #include "platform.h"
 #include "plic.h"
+#include "syscalls.h"
 #include "sysctl.h"
 #include "syslog.h"
 #include "uart.h"
-#include "syscalls.h"
 
 extern volatile uint64_t g_wake_up[2];
 
 core_instance_t core1_instance;
 
-volatile char * const ram = (volatile char*)RAM_BASE_ADDR;
+volatile char *const ram = (volatile char *)RAM_BASE_ADDR;
 
 extern char _heap_start[];
 extern char _heap_end[];
 
+void __attribute__((weak)) initialize_kendryte_ide_hook(void) {}
+
 void thread_entry(int core_id)
 {
-    while (!atomic_read(&g_wake_up[core_id]));
+    while(!atomic_read(&g_wake_up[core_id]))
+        ;
 }
 
 void core_enable(int core_id)
@@ -56,7 +59,7 @@ int register_core1(core_function func, void *ctx)
     return 0;
 }
 
-int __attribute__((weak)) os_entry(int core_id, int number_of_cores, int (*user_main)(int, char**))
+int __attribute__((weak)) os_entry(int core_id, int number_of_cores, int (*user_main)(int, char **))
 {
     /* Call main if there is no OS */
     return user_main(0, 0);
@@ -64,23 +67,19 @@ int __attribute__((weak)) os_entry(int core_id, int number_of_cores, int (*user_
 
 void _init_bsp(int core_id, int number_of_cores)
 {
-    extern int main(int argc, char* argv[]);
+    extern int main(int argc, char *argv[]);
     extern void __libc_init_array(void);
     extern void __libc_fini_array(void);
 
-    if (core_id == 0)
+    if(core_id == 0)
     {
         /* Initialize bss data to 0 */
         init_bss();
-
         /* Init UART */
-        //uart_init(UART_DEVICE_3);
-        //uart_configure(UART_DEVICE_3, 115200, 8, UART_STOP_1, UART_PARITY_NONE);
-        //fpioa_set_function(4, FUNC_UART3_RX);
-        //fpioa_set_function(5, FUNC_UART3_TX);
-        sys_register_getchar(uart3_getchar);
-        sys_register_putchar(uart3_putchar);
-
+        fpioa_set_function(4, FUNC_UART3_RX);
+        fpioa_set_function(5, FUNC_UART3_TX);
+        uart_debug_init(UART_DEVICE_3);
+        dmac_init();
         /* Init FPIOA */
         fpioa_init();
         /* Register finalization function */
@@ -93,24 +92,30 @@ void _init_bsp(int core_id, int number_of_cores)
         plic_init();
         /* Enable global interrupt */
         sysctl_enable_irq();
+        /* Hook entry for kendryte IDE */
+        initialize_kendryte_ide_hook();
     }
 
     int ret = 0;
-    if (core_id == 0)
+    if(core_id == 0)
     {
         core1_instance.callback = NULL;
         core1_instance.ctx = NULL;
         ret = os_entry(core_id, number_of_cores, main);
-    }
-    else
+    } else
     {
         plic_init();
         sysctl_enable_irq();
         thread_entry(core_id);
         if(core1_instance.callback == NULL)
-            asm volatile ("wfi");
+            asm volatile("wfi");
         else
             ret = core1_instance.callback(core1_instance.ctx);
     }
     exit(ret);
+}
+
+int pthread_setcancelstate(int __state, int *__oldstate)
+{
+    return 0;
 }
