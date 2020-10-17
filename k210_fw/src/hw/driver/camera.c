@@ -94,24 +94,12 @@ bool cameraInit(void)
   plic_irq_register(IRQN_DVP_INTERRUPT, cameraIRQ, NULL);
   plic_irq_enable(IRQN_DVP_INTERRUPT);
 
-  cameraStart();
-
   return ret;
 }
 
 bool cameraIsAvailable(void)
 {
   return !is_requested_capture;
-}
-
-bool cameraStart(void)
-{
-  is_requested_capture = true;
-  is_finished_capture = false;
-  dvp_clear_interrupt(DVP_STS_FRAME_START | DVP_STS_FRAME_FINISH);
-  dvp_config_interrupt(DVP_CFG_START_INT_ENABLE | DVP_CFG_FINISH_INT_ENABLE, 1);
-
-  return true;
 }
 
 bool cameraRequestCapture(void)

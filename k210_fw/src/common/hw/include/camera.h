@@ -20,7 +20,6 @@ extern "C" {
 
 
 bool cameraInit(void);
-bool cameraStart(void);
 bool cameraIsAvailable(void);
 bool cameraRequestCapture(void);
 bool cameraIsCaptured(void);
