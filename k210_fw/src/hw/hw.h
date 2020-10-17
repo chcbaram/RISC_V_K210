@@ -21,10 +21,12 @@ extern "C" {
 #include "cmdif.h"
 #include "gpio.h"
 #include "lcd.h"
+#include "camera.h"
 
 
 void hwInit(void);
 
+extern bool gpioInit(void);
 
 
 #ifdef __cplusplus

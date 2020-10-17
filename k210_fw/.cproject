@@ -52,7 +52,7 @@
 							<option id="ilg.gnumcueclipse.managedbuild.cross.riscv.option.optimization.other.1599414518" name="Other optimization flags" superClass="ilg.gnumcueclipse.managedbuild.cross.riscv.option.optimization.other" useByScannerDiscovery="true" value="-DCONFIG_LOG_LEVEL=LOG_INFO -D__riscv64  " valueType="string"/>
 							<option id="ilg.gnumcueclipse.managedbuild.cross.riscv.option.optimization.spconstant.2142255378" name="Single precision constants (-fsingle-precision-constant)" superClass="ilg.gnumcueclipse.managedbuild.cross.riscv.option.optimization.spconstant" useByScannerDiscovery="true" value="true" valueType="boolean"/>
 							<option id="ilg.gnumcueclipse.managedbuild.cross.riscv.option.target.align.533390647" name="Align" superClass="ilg.gnumcueclipse.managedbuild.cross.riscv.option.target.align" useByScannerDiscovery="false" value="ilg.gnumcueclipse.managedbuild.cross.riscv.option.target.align.default" valueType="enumerated"/>
-							<option id="ilg.gnumcueclipse.managedbuild.cross.riscv.option.target.other.1572044273" name="Other target flags" superClass="ilg.gnumcueclipse.managedbuild.cross.riscv.option.target.other" useByScannerDiscovery="true" value="-fstrict-volatile-bitfields -fno-zero-initialized-in-bss" valueType="string"/>
+							<option id="ilg.gnumcueclipse.managedbuild.cross.riscv.option.target.other.1572044273" name="Other target flags" superClass="ilg.gnumcueclipse.managedbuild.cross.riscv.option.target.other" useByScannerDiscovery="true" value="-fstrict-volatile-bitfields " valueType="string"/>
 							<option id="ilg.gnumcueclipse.managedbuild.cross.riscv.option.target.saverestore.477804916" name="Small prologue/epilogue (-msave-restore)" superClass="ilg.gnumcueclipse.managedbuild.cross.riscv.option.target.saverestore" useByScannerDiscovery="false" value="false" valueType="boolean"/>
 							<option id="ilg.gnumcueclipse.managedbuild.cross.riscv.option.target.tune.1167606729" name="Tuning" superClass="ilg.gnumcueclipse.managedbuild.cross.riscv.option.target.tune" useByScannerDiscovery="false" value="ilg.gnumcueclipse.managedbuild.cross.riscv.option.target.tune.size" valueType="enumerated"/>
 							<option id="ilg.gnumcueclipse.managedbuild.cross.riscv.option.target.smalldatalimit.1568324947" name="Small data limit" superClass="ilg.gnumcueclipse.managedbuild.cross.riscv.option.target.smalldatalimit" useByScannerDiscovery="false" value="8" valueType="string"/>
@@ -113,6 +113,7 @@
 								</option>
 								<option id="ilg.gnumcueclipse.managedbuild.cross.riscv.option.cpp.compiler.nortti.1789504115" name="Do not use RTTI (-fno-rtti)" superClass="ilg.gnumcueclipse.managedbuild.cross.riscv.option.cpp.compiler.nortti" useByScannerDiscovery="true" value="true" valueType="boolean"/>
 								<option id="ilg.gnumcueclipse.managedbuild.cross.riscv.option.cpp.compiler.std.1030926207" name="Language standard" superClass="ilg.gnumcueclipse.managedbuild.cross.riscv.option.cpp.compiler.std" useByScannerDiscovery="true" value="ilg.gnumcueclipse.managedbuild.cross.riscv.option.cpp.compiler.std.gnucpp17" valueType="enumerated"/>
+								<option id="ilg.gnumcueclipse.managedbuild.cross.riscv.option.cpp.compiler.noexceptions.1800574186" name="Do not use exceptions (-fno-exceptions)" superClass="ilg.gnumcueclipse.managedbuild.cross.riscv.option.cpp.compiler.noexceptions" useByScannerDiscovery="true" value="true" valueType="boolean"/>
 								<inputType id="ilg.gnumcueclipse.managedbuild.cross.riscv.tool.cpp.compiler.input.573233159" superClass="ilg.gnumcueclipse.managedbuild.cross.riscv.tool.cpp.compiler.input"/>
 							</tool>
 							<tool id="ilg.gnumcueclipse.managedbuild.cross.riscv.tool.c.linker.582259615" name="GNU RISC-V Cross C Linker" superClass="ilg.gnumcueclipse.managedbuild.cross.riscv.tool.c.linker">
@@ -151,6 +152,12 @@
 							</tool>
 						</toolChain>
 					</folderInfo>
+					<fileInfo id="ilg.gnumcueclipse.managedbuild.cross.riscv.config.elf.debug.1221731526.1126807454" name="entry_user.c" rcbsApplicability="disable" resourcePath="src/lib/kendryte-standalone-sdk/lib/bsp/entry_user.c" toolsToInvoke="ilg.gnumcueclipse.managedbuild.cross.riscv.tool.c.compiler.781246277.645380932">
+						<tool id="ilg.gnumcueclipse.managedbuild.cross.riscv.tool.c.compiler.781246277.645380932" name="GNU RISC-V Cross C Compiler" superClass="ilg.gnumcueclipse.managedbuild.cross.riscv.tool.c.compiler.781246277">
+							<option id="ilg.gnumcueclipse.managedbuild.cross.riscv.option.c.compiler.otheroptimizations.2129139375" name="Other optimization flags" superClass="ilg.gnumcueclipse.managedbuild.cross.riscv.option.c.compiler.otheroptimizations" useByScannerDiscovery="true" value="" valueType="string"/>
+							<inputType id="ilg.gnumcueclipse.managedbuild.cross.riscv.tool.c.compiler.input.759105739" superClass="ilg.gnumcueclipse.managedbuild.cross.riscv.tool.c.compiler.input"/>
+						</tool>
+					</fileInfo>
 					<sourceEntries>
 						<entry excluding="src/lib/kendryte-standalone-sdk/src/hello_world|src/lib/kendryte-standalone-sdk/lib/drivers/kpu.c|src/lib/kendryte-standalone-sdk/lib/nncase" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>

@@ -64,8 +64,8 @@ static volatile uint32_t draw_frame_time = 0;
 
 
 static uint16_t *p_draw_frame_buf = NULL;
-static uint16_t frame_buffer[2][HW_LCD_WIDTH * HW_LCD_HEIGHT];
-static uint16_t lcd_buffer[HW_LCD_WIDTH * HW_LCD_HEIGHT];
+static uint16_t __attribute__((aligned(64))) frame_buffer[2][HW_LCD_WIDTH * HW_LCD_HEIGHT];
+static uint16_t __attribute__((aligned(64))) lcd_buffer[HW_LCD_WIDTH * HW_LCD_HEIGHT];
 
 static uint16_t _win_w  = HW_LCD_WIDTH;
 static uint16_t _win_h  = HW_LCD_HEIGHT;
@@ -97,6 +97,8 @@ static uint16_t lcdGetColorMix(uint16_t c1, uint16_t c2, uint8_t mix);
 void TransferDoneISR(void)
 {
   fps_time = millis() - fps_pre_time;
+  fps_pre_time = millis();
+
   if (fps_time > 0)
   {
     fps_count = 1000 / fps_time;
@@ -444,8 +446,6 @@ bool lcdRequestDraw(void)
   {
     return false;
   }
-
-  fps_pre_time = millis();
 
   lcdSwapFrameBuffer();
   lcd.setWindow(0, 0, LCD_WIDTH-1, LCD_HEIGHT-1);
@@ -1030,9 +1030,13 @@ LCD_OPT_DEF uint16_t lcdGetColorMix(uint16_t c1_, uint16_t c2_, uint8_t mix)
   uint16_t c1;
   uint16_t c2;
 
+#if 1
   c1 = ((c1_>>8) & 0x00FF) | ((c1_<<8) & 0xFF00);
   c2 = ((c2_>>8) & 0x00FF) | ((c2_<<8) & 0xFF00);
-
+#else
+  c1 = c1_;
+  c2 = c2_;
+#endif
   r = ((uint16_t)((uint16_t) GETR(c1) * mix + GETR(c2) * (255 - mix)) >> 8);
   g = ((uint16_t)((uint16_t) GETG(c1) * mix + GETG(c2) * (255 - mix)) >> 8);
   b = ((uint16_t)((uint16_t) GETB(c1) * mix + GETB(c2) * (255 - mix)) >> 8);
@@ -1042,6 +1046,7 @@ LCD_OPT_DEF uint16_t lcdGetColorMix(uint16_t c1_, uint16_t c2_, uint8_t mix)
 
 
   return ((ret>>8) & 0xFF) | ((ret<<8) & 0xFF00);;
+  //return ret;
 }
 
 

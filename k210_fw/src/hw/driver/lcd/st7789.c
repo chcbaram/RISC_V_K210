@@ -134,7 +134,7 @@ bool st7789InitDriver(lcd_driver_t *p_driver)
 
 void st7789InitRegs(void)
 {
-#if 1
+#if 0
   writecommand(ST7789_SLPOUT);
   delay(120);
 
@@ -142,8 +142,8 @@ void st7789InitRegs(void)
   writedata(0x00);
 
   writecommand(ST7789_COLMOD);
-  writedata(0x05);
-  //writedata(0x55);
+  //writedata(0x05);
+  writedata(0x55);
 
   writecommand(ST7789_PORCTRL);
   writedata(0x0C);
@@ -193,6 +193,7 @@ void st7789InitRegs(void)
   writedata(0x18);
   writedata(0x19);
 
+
   writecommand(ST7789_NVGAMCTRL);
   writedata(0xD0);
   writedata(0x00);
@@ -209,11 +210,12 @@ void st7789InitRegs(void)
   writedata(0x18);
   writedata(0x19);
 
-
+  //writecommand(ST7789_RAMCTRL);
+  //writedata(0x00);
+  //writedata(0xC8);
 
   writecommand(ST7789_DISPON);
 #else
-  uint8_t data;
 
   writecommand(ST7789_SWRESET);
   delay(120);
@@ -224,8 +226,6 @@ void st7789InitRegs(void)
   /*pixel format*/
   writecommand(ST7789_COLMOD);
   writedata(0x55);
-
-//  /lcd_set_direction(DIR_YX_RLDU);
 
   /*display on*/
   writecommand(ST7789_DISPON);

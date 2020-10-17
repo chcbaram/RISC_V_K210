@@ -44,12 +44,33 @@ void apMain(void)
       show_data[1] = lcdGetFps();
     }
 
-    if (lcdDrawAvailable() > 0)
+    if (lcdDrawAvailable() > 0 && cameraIsAvailable() == true)
     {
       lcdClearBuffer(black);
-      lcdPrintf(0,  0, white, "%d ms", show_data[0]);
-      lcdPrintf(0, 16, white, "%d fps", show_data[1]);
-      lcdPrintfRect(0, 0, LCD_WIDTH, LCD_HEIGHT, white, 3, LCD_ALIGN_H_CENTER | LCD_ALIGN_V_CENTER,  "RISC_V 보드");
+
+      if (cameraIsCaptured())
+      {
+        uint16_t *camera_buf;
+        uint16_t *lcd_buf;
+        uint16_t color[2];
+
+        camera_buf = cameraGetFrameBuf();
+        lcd_buf = lcdGetFrameBuffer();
+
+        for (int i=0; i<320*240; i+=2)
+        {
+          color[0] = camera_buf[i+0];
+          color[1] = camera_buf[i+1];
+          lcd_buf[i+0] = (color[1]<<8) | (color[1]>>8);
+          lcd_buf[i+1] = (color[0]<<8) | (color[0]>>8);
+        }
+      }
+
+      lcdDrawFillRect(0, 0, 48, 32, black);
+
+      lcdPrintf(0,  0, red, "%d ms", show_data[0]);
+      lcdPrintf(0, 16, red, "%d fps", show_data[1]);
+      lcdPrintfRect(0, 0, LCD_WIDTH, LCD_HEIGHT, red, 3, LCD_ALIGN_H_CENTER | LCD_ALIGN_V_BOTTOM,  "RISC_V 보드");
 
       lcdDrawFillRect(x, 32, 30, 30, red);
       lcdDrawFillRect(lcdGetWidth()-x, 62, 30, 30, green);
@@ -60,6 +81,9 @@ void apMain(void)
       x %= lcdGetWidth();
       y %= lcdGetHeight();
 
+
+
+      cameraRequestCapture();
       lcdRequestDraw();
     }
   }

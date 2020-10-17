@@ -9,7 +9,7 @@
 
 
 #include "hw.h"
-#include "lcd/st7789.h"
+
 
 
 
@@ -24,6 +24,7 @@ void hwInit(void)
   gpioInit();
 
   lcdInit();
+  cameraInit();
 }
 
 

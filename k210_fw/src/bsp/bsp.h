@@ -24,7 +24,8 @@
 #include "plic.h"
 #include "uarths.h"
 #include "spi.h"
-
+#include "dvp.h"
+#include "iomem.h"
 
 #ifdef __cplusplus
 extern "C" {
