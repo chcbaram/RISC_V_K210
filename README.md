@@ -11,7 +11,7 @@
     * https://github.com/xpack-dev-tools/windows-build-tools-xpack/releases/tag/v2.12-20190422
     
   * kendryte-standalone-sdk
-    * https://github.com/sipeed/kendryte-standalone-sdk/tree/1d52a1aaa05fd10ad6c5968146d408709e0f9c2c
+    * https://github.com/kendryte/kendryte-standalone-sdk
     
   * kendryte-toolchain (kendryte-toolchain-win-amd64-8.2.0-20190409.zip)
     * https://dl.sipeed.com/MAIX/Maixduino/tools/win
@@ -19,4 +19,5 @@
   * kflash (win_kflash_py_v1.0.2.zip)
     * https://dl.sipeed.com/MAIX/Maixduino/tools/win
     
-    
+  * Kendryte OpenOCD v0.2.3 Release (2019-02-21)
+    * https://github.com/kendryte/openocd-kendryte/releases
