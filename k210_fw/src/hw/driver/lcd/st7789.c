@@ -422,8 +422,6 @@ bool st7789SendBuffer(uint8_t *p_data, uint32_t length, uint32_t timeout_ms)
   is_write_frame = true;
 
 
-
-  //dmac_irq_register(spi_dma_ch, dmaCallback, NULL, 5);
   dmac_enable_channel_interrupt(spi_dma_ch);
   write_dma_start(p_data, length/2);
 
