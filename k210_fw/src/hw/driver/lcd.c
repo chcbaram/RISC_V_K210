@@ -1023,11 +1023,15 @@ void disHanFontBuffer(int x, int y, PHAN_FONT_OBJ *FontPtr, uint16_t textcolor)
   }
 }
 
-LCD_OPT_DEF uint16_t lcdGetColorMix(uint16_t c1, uint16_t c2, uint8_t mix)
+LCD_OPT_DEF uint16_t lcdGetColorMix(uint16_t c1_, uint16_t c2_, uint8_t mix)
 {
   uint16_t r, g, b;
   uint16_t ret;
+  uint16_t c1;
+  uint16_t c2;
 
+  c1 = ((c1_>>8) & 0x00FF) | ((c1_<<8) & 0xFF00);
+  c2 = ((c2_>>8) & 0x00FF) | ((c2_<<8) & 0xFF00);
 
   r = ((uint16_t)((uint16_t) GETR(c1) * mix + GETR(c2) * (255 - mix)) >> 8);
   g = ((uint16_t)((uint16_t) GETG(c1) * mix + GETG(c2) * (255 - mix)) >> 8);
@@ -1035,7 +1039,9 @@ LCD_OPT_DEF uint16_t lcdGetColorMix(uint16_t c1, uint16_t c2, uint8_t mix)
 
   ret = MAKECOL(r, g, b);
 
-  return ret;
+
+
+  return ((ret>>8) & 0xFF) | ((ret<<8) & 0xFF00);;
 }
 
 

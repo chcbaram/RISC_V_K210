@@ -49,7 +49,7 @@ void apMain(void)
       lcdClearBuffer(black);
       lcdPrintf(0,  0, white, "%d ms", show_data[0]);
       lcdPrintf(0, 16, white, "%d fps", show_data[1]);
-
+      lcdPrintfRect(0, 0, LCD_WIDTH, LCD_HEIGHT, white, 3, LCD_ALIGN_H_CENTER | LCD_ALIGN_V_CENTER,  "RISC_V 보드");
 
       lcdDrawFillRect(x, 32, 30, 30, red);
       lcdDrawFillRect(lcdGetWidth()-x, 62, 30, 30, green);
