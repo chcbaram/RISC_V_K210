@@ -11,8 +11,12 @@
 #include "ap.h"
 
 
-#define PIN_LED  13
-#define GPIO_LED 3
+
+spinlock_t lock = SPINLOCK_INIT;
+
+
+int apMainCore1(void *ctx);
+
 
 
 void apInit(void)
@@ -20,6 +24,23 @@ void apInit(void)
   hwInit();
 
   cmdifOpen(_DEF_UART1, 115200);
+
+
+  register_core1(apMainCore1, NULL);
+}
+
+int apMainCore1(void *ctx)
+{
+  uint32_t count = 0;
+
+
+  while(1)
+  {
+    spinlock_lock(&lock);
+    printf("Core1 Run %d\n", count++);
+    spinlock_unlock(&lock);
+    delay(1000);
+  }
 }
 
 void apMain(void)
@@ -44,6 +65,10 @@ void apMain(void)
 
       show_data[0] = lcdGetFpsTime();
       show_data[1] = lcdGetFps();
+
+      spinlock_lock(&lock);
+      printf("Core0 Run \n");
+      spinlock_unlock(&lock);
     }
 
     if (lcdDrawAvailable() > 0 && cameraIsCaptured() == true)
