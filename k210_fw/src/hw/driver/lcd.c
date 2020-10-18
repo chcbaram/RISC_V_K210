@@ -1030,7 +1030,7 @@ LCD_OPT_DEF uint16_t lcdGetColorMix(uint16_t c1_, uint16_t c2_, uint8_t mix)
   uint16_t c1;
   uint16_t c2;
 
-#if 1
+#if 0
   c1 = ((c1_>>8) & 0x00FF) | ((c1_<<8) & 0xFF00);
   c2 = ((c2_>>8) & 0x00FF) | ((c2_<<8) & 0xFF00);
 #else
@@ -1045,8 +1045,8 @@ LCD_OPT_DEF uint16_t lcdGetColorMix(uint16_t c1_, uint16_t c2_, uint8_t mix)
 
 
 
-  return ((ret>>8) & 0xFF) | ((ret<<8) & 0xFF00);;
-  //return ret;
+  //return ((ret>>8) & 0xFF) | ((ret<<8) & 0xFF00);;
+  return ret;
 }
 
 

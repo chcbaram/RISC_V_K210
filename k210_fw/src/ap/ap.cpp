@@ -77,17 +77,14 @@ void apMain(void)
 
       uint16_t *camera_buf;
       uint16_t *lcd_buf;
-      uint16_t color[2];
 
       camera_buf = cameraGetFrameBuf();
       lcd_buf = lcdGetFrameBuffer();
 
       for (int i=0; i<320*240; i+=2)
       {
-        color[0] = camera_buf[i+0];
-        color[1] = camera_buf[i+1];
-        lcd_buf[i+0] = (color[1]<<8) | (color[1]>>8);
-        lcd_buf[i+1] = (color[0]<<8) | (color[0]>>8);
+        lcd_buf[i+0] = camera_buf[i+1];
+        lcd_buf[i+1] = camera_buf[i+0];
       }
 
 

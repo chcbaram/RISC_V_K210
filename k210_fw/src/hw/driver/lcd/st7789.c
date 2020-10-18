@@ -43,6 +43,7 @@ volatile static bool  is_write_frame = false;
 static void st7789InitRegs(void);
 static void writecommand(uint8_t c);
 static void writedata(uint8_t d);
+static void writebytes(uint8_t *p_data, uint32_t length);
 
 void st7789FillRect(int32_t x, int32_t y, int32_t w, int32_t h, uint32_t color);
 void st7789SetRotation(uint8_t m);
@@ -222,6 +223,15 @@ void st7789InitRegs(void)
   /*exit sleep*/
   writecommand(ST7789_SLPOUT);
   delay(120);
+
+  uint8_t data[4] = {0};
+
+  data[0] = 0x00;
+  data[1] = 0xC8;
+
+  // Endian (Little)
+  writecommand(ST7789_RAMCTRL);
+  writebytes(data, 2);
 
   /*pixel format*/
   writecommand(ST7789_COLMOD);
